@@ -17,3 +17,32 @@ class Solution {
         return res;
     }
 }
+
+
+
+#Another Approach is NcR Combination approach formula --
+# Time Complexity - O(n*n)  
+public static ArrayList<Long> generateRow(int row)
+	{
+		ArrayList<Long> res=new ArrayList<>();
+		long ans=1;
+		res.add(ans);
+		for(int col=1;col<row;col++)
+		{
+			ans=ans*(row-col);
+			ans/=col;
+			res.add(ans);
+		}
+		return res;
+	}
+	public static ArrayList<ArrayList<Long>> printPascal(int n) {
+                 // Write your code here.
+				 ArrayList<ArrayList<Long>> res=new ArrayList<>();
+				 for(int i=1;i<=n;i++)
+				 {
+					res.add(generateRow(i));	 
+				 }
+				 return res;
+				 
+				 
+	}
