@@ -1,0 +1,30 @@
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int slow=0;
+        int fast=0;
+        if(nums.length<=2)return nums[0];
+        do{
+            slow=(slow+1)%nums.length;
+            fast=(fast+2)%nums.length;
+            System.out.println(slow+" "+fast);
+        }
+        while(slow!=fast ||  nums[slow]!=nums[fast]);
+        return nums[fast];
+    }
+}
+
+
+<--------------------------------------------------------------------------------------------->
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n=nums.length;
+        for(int num : nums)
+        {
+            int idx=Math.abs(num);
+            if(nums[idx]<0)return idx;
+            nums[idx]=-nums[idx];
+        }
+        return n;
+    }
+}
