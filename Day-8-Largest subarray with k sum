@@ -1,0 +1,60 @@
+OPTIMAL SOLUTION  - 2-Pointer Approach-
+
+public static int longestSubarrayWithSumK(int []arr, long k) {
+        // Write your code here
+		HashMap<Long,Integer> map=new HashMap<Long,Integer>();
+        long sum=arr[0];
+        int len=0;
+		int n=arr.length;
+		int left=0;
+		int right=0;
+		while(right<n)
+		{
+			while(left<=right && sum>k)
+			{
+				sum-=arr[left];
+				left++;
+			}
+			if(sum==k)
+			{
+				len=Math.max(len,right-left+1);
+			}
+			right++;
+			if(right<n)sum+=arr[right];
+		}
+    return len;
+    }
+}
+
+
+<---------------------------------------------------------------------------------------------------------->
+import java.io.*;
+import java.util.* ;
+
+import java.util.ArrayList;
+
+public class Solution {
+
+	public static int LongestSubsetWithZeroSum(ArrayList<Integer> arr) {
+		HashMap<Integer,Integer> map=new HashMap<Integer,Integer>();
+        int sum=0;
+        int len=0;
+		int n=arr.size();
+        for(int i=0;i<n;i++)
+        {
+            sum+=arr.get(i);
+            if(sum==0){
+                len=i+1;
+            }
+            else if(map.containsKey(sum))
+            {
+                len=Math.max(len,i-map.get(sum));
+            }
+            else
+            {
+                map.put(sum,i);
+            }
+        }
+        return len;
+	}
+}
