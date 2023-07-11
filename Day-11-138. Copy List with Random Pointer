@@ -1,0 +1,66 @@
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        Node iter=head;
+        // Node front=head;
+        while(iter!=null)
+        {
+            // front=iter.next;
+            Node newNode=new Node(iter.val);
+            newNode.next=iter.next;
+            iter.next=newNode;
+            
+            iter=iter.next.next;
+        }
+        iter=head;
+        while(iter!=null)
+        {
+            if(iter.random!=null)
+            {
+                iter.next.random=iter.random.next;
+            }
+            iter=iter.next.next;
+        }
+
+        iter=head;
+        Node front;
+        Node dummy=new Node(0);
+        Node copy=dummy;
+        while(iter!=null)
+        {
+            front=iter.next.next;
+            copy.next=iter.next;
+           iter.next=front; 
+           iter=front;
+           copy=copy.next;
+        }
+
+
+        return dummy.next;
+    }
+}
+
+
+<----------------------------------------> ANOTHER SOLUTION
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        HashMap<Node, Node> map=new HashMap<Node, Node>();
+        Node temp=head;
+        while(temp!=null)
+        {
+            Node node=new Node(temp.val);
+            map.put(temp,node);
+            temp=temp.next;
+        } 
+        temp=head;
+        while(temp!=null)
+        {
+            Node clonedNode=map.get(temp);
+            clonedNode.next=map.get(temp.next);
+            clonedNode.random=map.get(temp.random);
+            temp=temp.next;
+        }
+        return map.get(head);
+    }
+}
