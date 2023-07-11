@@ -1,0 +1,39 @@
+1. One solution is using HashMap -Extra Space;
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode tempA=headA;
+        ListNode tempB=headB;
+        boolean flagA=false;
+        boolean flagB=false;
+        while(tempA!=null && tempB!=null)
+        {
+            if(tempA==tempB)return tempA;
+            tempA=tempA.next;
+            tempB=tempB.next;
+            if(tempA==null && !flagA)
+            {
+                flagA=true;
+               tempA=headB; 
+            }
+            if(tempB==null && !flagB) 
+            {
+                flagB=true;
+               tempB=headA; 
+            }
+            
+        }
+        return null;
+    }
+}
