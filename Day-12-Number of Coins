@@ -1,0 +1,62 @@
+
+
+class Solution{
+    public int coinsCount(int coins[],int index, int target,int dp[][])
+    {
+        if(index==0)
+        {
+            if(target%coins[0]==0)return target/coins[0];
+            else return (int)1e9;
+        }
+        if(dp[index][target]!=-1)return dp[index][target]; 
+        int notTake=0+coinsCount(coins,index-1,target, dp);
+        int take=Integer.MAX_VALUE;
+        if(target>=coins[index])
+        {
+            take=1+coinsCount(coins,index,target-coins[index], dp);
+        }
+        return dp[index][target]=Math.min(notTake,take);
+    }
+
+	public int minCoins(int coins[], int M, int V) 
+	{ 
+	    // Your code goes here
+	    int dp[][]=new int[M][V+1];
+	    
+	    int prev[]=new int[V+1];
+	    Arrays.fill(prev,-1);
+	    
+	    for(int T=0;T<=V;T++)
+	    {
+	        if(T%coins[0]==0)
+	        {
+	            prev[T]=T/coins[0];
+	        }
+	        else{
+	            prev[T]=(int)1e9;
+	        }
+	    }
+	    
+	    
+	    for(int i=1;i<M;i++)
+	    {
+	        int curr[]=new int[V+1];
+	        for(int T=0;T<=V;T++)
+	        {
+	            int notTake=0+prev[T];
+                int take=Integer.MAX_VALUE;
+                if(T>=coins[i])
+                {
+                    take=1+curr[T-coins[i]];
+                }
+                curr[T]=Math.min(notTake,take);
+	        }
+	        prev=curr;
+	    }
+	    
+	    int res=prev[V];
+	
+	    if(res>=1000000000)return -1;
+	    return res;
+	} 
+}
