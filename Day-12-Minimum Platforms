@@ -1,0 +1,39 @@
+
+
+//User function Template for Java
+
+class Solution
+{
+    //Function to find the minimum number of platforms required at the
+    //railway station such that no train waits.
+    static int findPlatform(int arr[], int dep[], int n)
+    {
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        
+        int platNeeded=1;
+        int maxPlat=1;
+        
+        int departure=0;
+        int arrival=1;
+        
+        while(departure<n && arrival<n)
+        {
+            if(arr[arrival]<=dep[departure])
+            {
+                platNeeded++;
+                arrival++;
+            }
+            else if(arr[arrival]>dep[departure])
+            {
+                platNeeded--;
+                departure++;
+            }
+            if(platNeeded>maxPlat){
+                maxPlat=platNeeded;
+            }
+        }
+        return maxPlat;
+    }
+    
+}
