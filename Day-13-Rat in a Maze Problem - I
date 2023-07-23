@@ -1,0 +1,38 @@
+
+
+// User function Template for Java
+
+// m is the given matrix and n is the order of matrix
+class Solution {
+    public static void checkPath(int[][] m, int vis[][] , int row, int col, String s,int n,ArrayList<String> res)
+    {
+        vis[row][col]=1;
+        if(row==n-1 && col==n-1)
+        {
+            res.add(s);
+            return;
+        }
+        int rowD[]={1,0,0,-1};
+        int colD[]={0,-1,1,0};
+        String direction="DLRU";
+        for(int i=0;i<4;i++)
+        {
+            int newRow=row+rowD[i];
+            int newCol=col+colD[i];
+            if(newRow>=0 && newRow<n && newCol>=0 && newCol<n && vis[newRow][newCol]==0 && m[newRow][newCol]==1)
+            {
+                checkPath(m,vis,newRow,newCol,s+direction.charAt(i),n,res);
+                vis[newRow][newCol]=0;
+            }
+        }
+    }
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // Your code here
+        ArrayList<String> res= new ArrayList<>();
+        if(m[0][0]!=1)return res;
+        String s="";
+        int vis[][]=new int[n][n];
+        checkPath(m,vis,0,0,s,n,res);
+        return res;
+    }
+}
